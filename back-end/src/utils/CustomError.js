@@ -4,7 +4,7 @@ class CustomError extends Error {
     this.message = message;
   }
 
-  setCode = () => {
+  setCode() {
     switch(this.name) {
       case 'validationError':
         this.code = 400;
