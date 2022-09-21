@@ -1,11 +1,12 @@
 class CustomError extends Error {
   constructor(name, message) {
+    super(message);
     this.name = name;
     this.message = message;
   }
 
   setCode() {
-    switch(this.name) {
+    switch (this.name) {
       case 'validationError':
         this.code = 400;
         break;
