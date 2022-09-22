@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Register() {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [status, setStatus] = useState();
+
   return (
     <div>
       <h1>Cadastro</h1>
