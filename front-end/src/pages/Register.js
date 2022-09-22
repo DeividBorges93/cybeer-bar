@@ -9,6 +9,10 @@ export default function Register() {
 
   const [status, setStatus] = useState();
 
+  const valueInput = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+
   return (
     <div>
       <h1>Cadastro</h1>
