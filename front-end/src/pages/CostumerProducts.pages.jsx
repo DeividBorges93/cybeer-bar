@@ -1,8 +1,12 @@
+import Navbar from '../components/Navbar';
+
 function CostumerProducts() {
   console.log('let"s code');
 
   return (
-    <p>CostumerProducts</p>
+    <div>
+      <Navbar />
+    </div>
   );
 }
 
