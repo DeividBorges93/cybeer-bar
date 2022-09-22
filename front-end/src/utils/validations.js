@@ -10,6 +10,7 @@ function validateName(user) {
       type: 'error', message: 'Erro: "name" precisa ter no mínimo 12 caracteres' });
   }
 }
+
 function validateEmail(user) {
   if (!user.email) {
     return ({
