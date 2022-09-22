@@ -11,7 +11,7 @@ const ProductModel = (sequelize, DataTypes) => {
       allowNull: false,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL(4,2),
       allowNull: false,
     },
     urlImage: {

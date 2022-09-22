@@ -15,7 +15,7 @@ const SalesModel = (sequelize, DataTypes) => {
       foreignKey: true
     },
     totalPrice: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL(9,2),
       allowNull: false,
     },
     deliveryAddress: {
