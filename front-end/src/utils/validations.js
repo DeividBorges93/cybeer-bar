@@ -30,3 +30,11 @@ function validatePassword(user) {
       type: 'error', message: 'Erro: "password" precisa ter no mínimo 6 caracteres' });
   }
 }
+
+export default function validate(user, op) {
+  const errorArray = [validateName(user),
+    validateEmail(user),
+    validatePassword(user)];
+
+  return op === 'register' ? errorArray : errorArray.shift();
+}
