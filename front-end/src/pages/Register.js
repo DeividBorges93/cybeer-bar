@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validate from '../utils/validations';
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -34,6 +35,12 @@ export default function Register() {
   return (
     <div>
       <h1>Cadastro</h1>
+
+      { status.map((error, index) => (
+        error.type === 'success'
+          ? <p key={ index } style={ { color: 'green' } }>{error.message}</p>
+          : <p key={ index } style={ { color: 'red' } }>{error.message}</p>
+      ))}
 
       <section>
         <form onSubmit={ addUser }>
