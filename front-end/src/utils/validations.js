@@ -17,3 +17,16 @@ function validateEmail(user) {
       type: 'error', message: 'Erro: necessário preencher o campo "email"!' });
   }
 }
+
+function validatePassword(user) {
+  const min = 6;
+
+  if (!user.password) {
+    return ({
+      type: 'error', message: 'Erro: necessário preencher o campo "password"!' });
+  }
+  if (user.password.length < min) {
+    return ({
+      type: 'error', message: 'Erro: "password" precisa ter no mínimo 6 caracteres' });
+  }
+}
