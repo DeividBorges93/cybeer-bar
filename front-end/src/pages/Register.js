@@ -13,6 +13,24 @@ export default function Register() {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
+  const addUser = async (event) => {
+    event.preventDefault();
+
+    const hasError = validate(user, 'register');
+    setStatus(hasError);
+
+    // if (hasError.some((error) => !error));
+
+    // const saveDataForm = false; // implementar requisição ao backend
+
+    // if (!saveDataForm) {
+    //   setStatus([{
+    //     type: 'error',
+    //     message: 'Erro: usuário não foi cadastrado!',
+    //   }]);
+    // }
+  };
+
   return (
     <div>
       <h1>Cadastro</h1>
