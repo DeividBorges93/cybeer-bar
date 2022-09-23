@@ -8,7 +8,7 @@ const errorMiddleware = require('../middlewares/error.middleware');
 
 const app = express();
 app.use(express.static('public'));
-app.use('/images',express.static(__dirname + '/public/images'));
+app.use('/images', express.static(`${__dirname}/public/images`));
 
 app.use(express.json());
 app.use(cors());
