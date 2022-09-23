@@ -1,6 +1,17 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import ShoppingCartStorage from '../utils/localStorage.util';
 
-function ProductCard({ name, price, urlImage, index }) {
+function ProductCard({ product }) {
+  const { name, price, urlImage, index } = product;
+
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    ShoppingCartStorage.handlerItem({ ...product, quantity });
+    setQuantity((prev) => (prev < 0 ? 0 : prev));
+  }, [quantity]);
+
   return (
     <div data-testid={ `customer_products__element-card-price-${index}` }>
       <span
@@ -21,16 +32,20 @@ function ProductCard({ name, price, urlImage, index }) {
 
       <div>
         <button
+          onClick={ () => setQuantity((prev) => prev - 1) }
           data-testid={ `customer_products__button-card-rm-item-${index}` }
           type="button"
         >
           -
         </button>
         <input
+          value={ quantity }
+          onChange={ ({ target }) => setQuantity(target.value) }
           data-testid={ `customer_products__input-card-quantity-${index}` }
           type="number"
         />
         <button
+          onClick={ () => setQuantity((prev) => prev + 1) }
           data-testid={ `customer_products__button-card-add-item-${index}` }
           type="button"
         >
@@ -42,10 +57,12 @@ function ProductCard({ name, price, urlImage, index }) {
 }
 
 ProductCard.propTypes = {
-  name: PropTypes.string,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  index: PropTypes.number,
+  product: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    index: PropTypes.number,
+  }),
 }.isRequired;
 
 export default ProductCard;
