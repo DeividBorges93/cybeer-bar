@@ -3,6 +3,7 @@ class CustomError extends Error {
     super(message);
     this.name = name;
     this.message = message;
+    this.setCode();
   }
 
   setCode() {
@@ -10,11 +11,17 @@ class CustomError extends Error {
       case 'validationError':
         this.code = 400;
         break;
-      
+      case 'NotFoundError':
+        this.code = 404;
+        break;
+      case 'UnauthorizedError':
+        this.code = 401;
+        break;
+
       default:
         this.code = 500;
     }
   }
 }
 
-export default CustomError;
+module.exports = CustomError;
