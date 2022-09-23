@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../style/login.css';
+import constants from '../utils/constants.util';
 
-export default function Register() {
+const { OK } = constants.status_code;
+
+export default function Login() {
+  const navigate = useNavigate();
+
   const [emailState, setEmail] = useState('');
   const [passwordState, setPassword] = useState('');
   const [loginButtonState, setloginButton] = useState(true);
@@ -10,26 +16,62 @@ export default function Register() {
 
   const validateEmail = (email) => {
     setEmail(email);
-    const regexEmail = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const validate = email.match(regexEmail);
-    setloginButton(!validate);
-    if (!validate) return setFormatError('Padrão de E-mail incorreto');
-    return setFormatError('');
+    return validate;
   };
 
   const validatePassword = (password) => {
     setPassword(password);
     const passwordLength = 6;
-    const validate = password.length < passwordLength;
-    setloginButton(validate);
-    if (validate) return setFormatError('Digite um formato de senha valido');
-    return setFormatError('');
+
+    const validate = password.length >= passwordLength;
+    return validate;
+  };
+
+  useEffect(() => {
+    const canDisable = [validateEmail(emailState), validatePassword(passwordState)];
+
+    console.log(canDisable.every((field) => field));
+
+    setloginButton(!canDisable.every((field) => field));
+  }, [passwordState, emailState]);
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+
+    axios({
+      method: 'post',
+      baseURL: 'http://localhost:3001',
+      url: '/login',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      data: {
+        email: emailState,
+        password: passwordState,
+      },
+    }).then((response) => {
+      if (response.status === OK) {
+        localStorage.setItem('user', JSON.stringify({
+          token: response.data,
+        }));
+        navigate('/customer/products');
+      } else {
+        setFormatError(response.data.message);
+        console.log(response.data.message);
+      }
+    })
+      .catch((error) => {
+        setFormatError(error.message);
+        console.log(error.message);
+      });
   };
 
   return (
     <section>
       <h1 className="Title">CyBeer Bar</h1>
-      <form>
+      <form onSubmit={ loginHandler }>
         <input
           aria-label="Login"
           type="text"
