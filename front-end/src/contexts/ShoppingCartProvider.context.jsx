@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 export const ShoppingCartContext = createContext();
@@ -6,9 +6,10 @@ export const ShoppingCartContext = createContext();
 function ShoppingCartProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const context = useMemo(() => ({ totalPrice, setTotalPrice }), [totalPrice]);
+
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ShoppingCartContext.Provider value={ { totalPrice, setTotalPrice } }>
+    <ShoppingCartContext.Provider value={ context }>
       {children}
     </ShoppingCartContext.Provider>
   );
