@@ -1,15 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ShoppingCartStorage from '../utils/localStorage.util';
+import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 
 function ProductCard({ product }) {
   const { name, price, urlImage, index } = product;
-
   const [quantity, setQuantity] = useState(0);
+  const { setTotalPrice } = useContext(ShoppingCartContext);
+
+  useEffect(() => {
+    const item = ShoppingCartStorage.getItem(product);
+    setQuantity(item?.quantity || 0);
+  }, []);
 
   useEffect(() => {
     ShoppingCartStorage.handlerItem({ ...product, quantity });
     setQuantity((prev) => (prev < 0 ? 0 : prev));
+
+    const prices = ShoppingCartStorage.getTotalPrice();
+    console.log(prices);
+    setTotalPrice(prices);
   }, [quantity]);
 
   return (
