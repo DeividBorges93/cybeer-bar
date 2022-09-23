@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ShoppingCartStorage from '../utils/localStorage.util';
+import ShoppingCartStorage from '../utils/shoppingCartStorage';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 
 function ProductCard({ product }) {
