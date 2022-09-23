@@ -20,9 +20,9 @@ class ShoppingCartStorage {
     const { quantity } = product;
     const exist = ShoppingCartStorage.existItem(product);
 
-    // if (quantity === 0 && exist) {
-    //   ShoppingCartStorage.removeItem(product);
-    // }
+    if (quantity === 0) {
+      ShoppingCartStorage.removeItem(product);
+    }
     if (quantity === 1 && !exist) {
       ShoppingCartStorage.addItem(product);
     }

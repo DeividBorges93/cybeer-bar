@@ -14,8 +14,8 @@ function ProductCard({ product }) {
   }, []);
 
   useEffect(() => {
-    ShoppingCartStorage.handlerItem({ ...product, quantity });
     setQuantity((prev) => (prev < 0 ? 0 : prev));
+    ShoppingCartStorage.handlerItem({ ...product, quantity });
 
     const prices = ShoppingCartStorage.getTotalPrice();
     setTotalPrice(prices);
