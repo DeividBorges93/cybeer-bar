@@ -4,8 +4,8 @@ const { sign, verify } = require('jsonwebtoken');
 const CustomError = require('./CustomError');
 
 class JwtUtils {
-  static createToken(id, role) {
-    return sign({ id, role }, process.env.JWT_SECRET || 'Secret');
+  static createToken({ id, name, email, role }) {
+    return sign({ id, name, email, role }, process.env.JWT_SECRET || 'Secret');
   }
 
   static validateToken(token) {
