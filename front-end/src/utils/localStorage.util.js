@@ -1,7 +1,13 @@
 class ShoppingCartStorage {
   static getItems = () => {
-    const shoppingCart = JSON.parse(localStorage.getItem('carrinho'));
-    return shoppingCart || [];
+    const items = JSON.parse(localStorage.getItem('carrinho'));
+    return items || [];
+  };
+
+  static getItem = (product) => {
+    const foundItem = ShoppingCartStorage
+      .getItems().find((item) => item.name === product.name);
+    return foundItem;
   };
 
   static existItem = (product) => {
@@ -14,9 +20,9 @@ class ShoppingCartStorage {
     const { quantity } = product;
     const exist = ShoppingCartStorage.existItem(product);
 
-    if (quantity === 0 && exist) {
-      ShoppingCartStorage.removeItem(product);
-    }
+    // if (quantity === 0 && exist) {
+    //   ShoppingCartStorage.removeItem(product);
+    // }
     if (quantity === 1 && !exist) {
       ShoppingCartStorage.addItem(product);
     }
@@ -27,34 +33,34 @@ class ShoppingCartStorage {
 
   static updateItem = (product) => {
     const items = ShoppingCartStorage.getItems();
+    const afterUpdate = items.map((item) => {
+      if (item.name === product.name) return product;
+      return item;
+    });
 
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify(
-        items.map((item) => {
-          if (item.name === product.name) {
-            return product;
-          }
-          return item;
-        }),
-      ),
-    );
+    ShoppingCartStorage.setItem(afterUpdate);
   };
 
   static addItem = (product) => {
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify([...ShoppingCartStorage.getItems(), product]),
-    );
+    const afterAdd = [...ShoppingCartStorage.getItems(), product];
+
+    ShoppingCartStorage.setItem(afterAdd);
   };
 
   static removeItem = (product) => {
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify(
-        ShoppingCartStorage.getItems().filter((item) => item.name !== product.name),
-      ),
-    );
+    const afterRemove = ShoppingCartStorage
+      .getItems().filter((item) => item.name !== product.name);
+
+    ShoppingCartStorage.setItem(afterRemove);
+  };
+
+  static setItem = (data) => {
+    localStorage.setItem('carrinho', JSON.stringify(data));
+  };
+
+  static getTotalPrice = () => {
+    const items = ShoppingCartStorage.getItems();
+    return items.reduce((acc, value) => acc + (value.price * value.quantity), 0);
   };
 }
 
