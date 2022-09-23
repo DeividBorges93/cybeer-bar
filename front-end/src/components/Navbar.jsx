@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
+  const [user, setUser] = useState('');
+
+  useEffect(() => setUser(JSON.parse(localStorage.getItem('user'))?.name || ''), []);
+
   return (
     <div style={ { display: 'flex', justifyContent: 'space-between' } }>
       <Link to="/customer/products">
@@ -14,9 +19,13 @@ function Navbar() {
         </span>
       </Link>
       <span data-testid="customer_products__element-navbar-user-full-name">
-        Nome usuário
+        { user }
       </span>
-      <button data-testid="customer_products__element-navbar-link-logout" type="button">
+      <button
+        onClick={ localStorage.removeItem('user') }
+        data-testid="customer_products__element-navbar-link-logout"
+        type="button"
+      >
         Sair
       </button>
     </div>
