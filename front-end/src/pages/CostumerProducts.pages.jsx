@@ -12,7 +12,6 @@ function CostumerProducts() {
     setShowShoppingCart(totalPrice > 0);
   }, [totalPrice]);
 
-  console.log(totalPrice);
   return (
     <div>
       <Navbar />

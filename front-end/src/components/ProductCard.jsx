@@ -18,7 +18,6 @@ function ProductCard({ product }) {
     setQuantity((prev) => (prev < 0 ? 0 : prev));
 
     const prices = ShoppingCartStorage.getTotalPrice();
-    console.log(prices);
     setTotalPrice(prices);
   }, [quantity]);
 
