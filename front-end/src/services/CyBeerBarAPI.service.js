@@ -37,6 +37,12 @@ class CyBeerBarAPI {
       .then((response) => response.data)
       .catch((error) => console.error(error.message));
   }
+
+  async restoreProducts() {
+    return axios.get('/products', this.options)
+      .then((response) => response.data.products)
+      .catch((error) => console.error(error.message));
+  }
 }
 
 export default CyBeerBarAPI;
