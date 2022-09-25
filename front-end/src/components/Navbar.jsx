@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
+  const navigate = useNavigate();
 
-  useEffect(() => setUser(JSON.parse(localStorage.getItem('user'))?.name || ''), []);
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  useEffect(() => {
+    setUserName(JSON.parse(localStorage.getItem('user'))?.name);
+  }, []);
 
   return (
     <div style={ { display: 'flex', justifyContent: 'space-between' } }>
@@ -19,10 +27,10 @@ function Navbar() {
         </span>
       </Link>
       <span data-testid="customer_products__element-navbar-user-full-name">
-        { user }
+        { userName }
       </span>
       <button
-        onClick={ localStorage.removeItem('user') }
+        onClick={ logout }
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
       >
