@@ -3,15 +3,17 @@ import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
-import { products } from '../utils/dataMock.util';
+import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
 function CostumerProducts() {
   const { totalPrice } = useContext(ShoppingCartContext);
+  const [products, setProducts] = useState([]);
   const [sowShoppingCart, setShowShoppingCart] = useState(false);
   const { state } = useLocation();
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state));
+    new CyBeerBarAPI().restoreProducts().then((data) => setProducts(data));
   }, []);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function CostumerProducts() {
     <div>
       <Navbar />
       {
-        products.map((product, index) => (
+        products?.map((product, index) => (
           <ProductCard
             key={ `${product.name}-${index}` }
             product={ product }
