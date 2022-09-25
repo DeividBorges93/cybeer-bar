@@ -1,10 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 import '../style/login.css';
-import constants from '../utils/constants.util';
-
-const { OK } = constants.status_code;
 
 export default function Login() {
   const navigate = useNavigate();
@@ -37,35 +34,13 @@ export default function Login() {
     setloginButton(!canDisable.every((field) => field));
   }, [passwordState, emailState]);
 
-  const loginHandler = (event) => {
+  const loginHandler = async (event) => {
     event.preventDefault();
 
-    axios({
-      method: 'post',
-      baseURL: 'http://localhost:3001',
-      url: '/login',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      data: {
-        email: emailState,
-        password: passwordState,
-      },
-    }).then((response) => {
-      if (response.status === OK) {
-        localStorage.setItem('user', JSON.stringify({
-          token: response.data,
-        }));
-        navigate('/customer/products');
-      } else {
-        setFormatError(response.data.message);
-        console.log(response.data.message);
-      }
-    })
-      .catch((error) => {
-        setFormatError(error.message);
-        console.log(error.message);
-      });
+    await new CyBeerBarAPI().login({
+      email: emailState,
+      password: passwordState,
+    }, [navigate, setFormatError]);
   };
 
   return (
