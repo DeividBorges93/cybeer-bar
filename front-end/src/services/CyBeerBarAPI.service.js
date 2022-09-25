@@ -15,9 +15,14 @@ class CyBeerBarAPI {
     const [navigate, setFormatError] = callbacks;
 
     return axios.post('/login', data, this.options)
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === OK) {
-          navigate('/customer/products');
+          const decriptToken = await this.decryptToken(response.data.token);
+
+          navigate('/customer/products', { state: {
+            ...decriptToken,
+            token: response.data.token,
+          } });
         } else {
           setFormatError(response.data.message);
         }
@@ -25,6 +30,12 @@ class CyBeerBarAPI {
       .catch((error) => {
         setFormatError(error.message);
       });
+  }
+
+  async decryptToken(token) {
+    return axios.post('/login/decrypt-token', { token }, this.options)
+      .then((response) => response.data)
+      .catch((error) => console.error(error.message));
   }
 }
 
