@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
@@ -7,6 +8,11 @@ import { products } from '../utils/dataMock.util';
 function CostumerProducts() {
   const { totalPrice } = useContext(ShoppingCartContext);
   const [sowShoppingCart, setShowShoppingCart] = useState(false);
+  const { state } = useLocation();
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(state));
+  }, []);
 
   useEffect(() => {
     setShowShoppingCart(totalPrice > 0);
