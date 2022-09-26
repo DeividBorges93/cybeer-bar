@@ -19,12 +19,12 @@ class LoginService {
       email: user.email,
       password: user.password,
       role: user.role,
-      token
+      token,
     };
   }
 
   static async register({ name, email, password }) {
-    const existUser = await dbModel.User.findOne({ where: { email }});
+    const existUser = await dbModel.User.findOne({ where: { email } });
 
     if (existUser) throw new CustomError('Conflict', 'User already registered');
 
@@ -32,7 +32,7 @@ class LoginService {
       name,
       email,
       password: md5(password),
-      role: 'customer'
+      role: 'customer',
     });  
     return user;    
   }
