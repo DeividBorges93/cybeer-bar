@@ -17,6 +17,7 @@ const ProductModel = (sequelize, DataTypes) => {
     urlImage: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'url_image',
     },
   }, {
     timestamps: false,

@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const UserRoutes = require('../routers/login.route');
 const ProductsRoutes = require('../routers/products.route');
+const OrdersRoutes = require('../routers/orders.route');
 
 const errorMiddleware = require('../middlewares/error.middleware');
 
@@ -18,6 +19,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use('/user', UserRoutes);
 app.use('/products', ProductsRoutes);
+app.use('/orders', OrdersRoutes);
 app.use(errorMiddleware);
 
 module.exports = app;
