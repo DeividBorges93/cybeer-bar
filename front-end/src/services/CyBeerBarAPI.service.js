@@ -18,9 +18,11 @@ class CyBeerBarAPI {
     return axios.post('/user/login', data, this.options)
       .then(async (response) => {
         if (response.status === OK) {
-          navigate(routesByRole[response.data.role], { state: {
-            ...response.data,
-          } });
+          const { password, ...userData } = response.data;
+          localStorage.setItem('user', JSON.stringify(userData));
+          const user = await JSON.parse(localStorage.getItem('user'));
+
+          if (user) navigate(routesByRole[response.data.role]);
         } else {
           setFormatError(response.data.message);
         }
