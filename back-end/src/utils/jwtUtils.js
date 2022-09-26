@@ -11,7 +11,7 @@ class JwtUtils {
   static validateToken(token) {
     if (!token) throw new CustomError('UnauthorizedError', 'Token must be a valid token');
     try {
-      const data = verify(token, process.env.JWT_SECRET || 'Secret');
+      const data = verify(token, process.env.JWT_SECRET || 'secret_key');
       return data;
     } catch (error) {
       if (error) {
