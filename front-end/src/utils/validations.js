@@ -1,3 +1,5 @@
+const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function validateName(user) {
   const min = 12;
 
@@ -15,6 +17,10 @@ function validateEmail(user) {
   if (!user.email) {
     return ({
       type: 'error', message: 'Erro: necessário preencher o campo "email"!' });
+  }
+  if (!regexEmail.test(user.email)) {
+    return ({
+      type: 'error', message: 'Erro: formato incorreto de email"!' });
   }
 }
 
