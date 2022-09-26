@@ -7,7 +7,7 @@ export default function Register() {
   const [user, setUser] = useState();
   const navigate = useNavigate();
 
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState([]);
   const [registerButtonState, setRegisterButton] = useState(false);
 
   const valueInput = (event) => {
