@@ -1,31 +1,36 @@
 function validateName(user) {
   const min = 12;
 
-  if (!user.name) {
+  if (!user?.name) {
     return ({
       type: 'error', message: 'Erro: necessário preencher o campo "name"!' });
   }
-  if (user.name.length < min) {
+  if (user?.name.length < min) {
     return ({
       type: 'error', message: 'Erro: "name" precisa ter no mínimo 12 caracteres' });
   }
 }
 
 function validateEmail(user) {
-  if (!user.email) {
+  if (!user?.email) {
     return ({
       type: 'error', message: 'Erro: necessário preencher o campo "email"!' });
+  }
+
+  if (!user.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    return ({
+      type: 'error', message: 'Erro: "email" inválido!' });
   }
 }
 
 function validatePassword(user) {
   const min = 6;
 
-  if (!user.password) {
+  if (!user?.password) {
     return ({
       type: 'error', message: 'Erro: necessário preencher o campo "password"!' });
   }
-  if (user.password.length < min) {
+  if (user?.password.length < min) {
     return ({
       type: 'error', message: 'Erro: "password" precisa ter no mínimo 6 caracteres' });
   }

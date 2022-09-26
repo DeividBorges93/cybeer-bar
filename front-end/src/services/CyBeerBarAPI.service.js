@@ -1,7 +1,7 @@
 import axios from 'axios';
 import constants from '../utils/constants.util';
 
-const { status_code: { OK } } = constants;
+const { status_code: { OK, CREATED } } = constants;
 
 class CyBeerBarAPI {
   options = {
@@ -14,14 +14,11 @@ class CyBeerBarAPI {
   async login(data, callbacks) {
     const [navigate, setFormatError] = callbacks;
 
-    return axios.post('/login', data, this.options)
+    return axios.post('/user/login', data, this.options)
       .then(async (response) => {
         if (response.status === OK) {
-          const decriptToken = await this.decryptToken(response.data.token);
-
           navigate('/customer/products', { state: {
-            ...decriptToken,
-            token: response.data.token,
+            ...response.data,
           } });
         } else {
           setFormatError(response.data.message);
@@ -32,10 +29,25 @@ class CyBeerBarAPI {
       });
   }
 
-  async decryptToken(token) {
-    return axios.post('/login/decrypt-token', { token }, this.options)
-      .then((response) => response.data)
-      .catch((error) => console.error(error.message));
+  async register(data, callbacks) {
+    const [navigate, setFormatError] = callbacks;
+    return axios.post('/user/register', data, this.options)
+      .then(async (response) => {
+        if (response.status === CREATED) {
+          navigate('/customer/products');
+        } else {
+          setFormatError([{
+            type: 'error',
+            message: `Erro: ${response.data?.message}`,
+          }]);
+        }
+      })
+      .catch(() => {
+        setFormatError([{
+          type: 'error',
+          message: 'Erro: Email já cadastrado!',
+        }]);
+      });
   }
 
   async restoreProducts() {

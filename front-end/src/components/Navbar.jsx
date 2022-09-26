@@ -12,6 +12,7 @@ function Navbar() {
   };
 
   useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(state));
     setUserName(state?.name);
   }, []);
 
