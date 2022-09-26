@@ -11,9 +11,14 @@ class LoginService {
       throw new CustomError('NotFoundError', 'User not found');
     }
 
-    const token = JwtUtils.createToken(user);
+    const token = JwtUtils.createToken(user);  
 
     return token;
+  }
+
+  static async decryptToken(token) {
+    const data = JwtUtils.validateToken(token);
+    return data;
   }
 }
 
