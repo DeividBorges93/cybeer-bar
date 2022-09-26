@@ -1,46 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import validate from '../utils/validations';
 
 export default function Register() {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [user, setUser] = useState();
 
   const [status, setStatus] = useState();
+  const [registerButtonState, setRegisterButton] = useState(false);
 
   const valueInput = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
+  useEffect(() => {
+    if (user?.name !== '' || user?.email !== '' || user?.password) {
+      const hasError = validate(user, 'register');
+      setStatus(hasError);
+
+      console.log(hasError, 'hasError');
+
+      console.log(!hasError.every((field) => field));
+
+      setRegisterButton(!hasError.every((field) => !field));
+    }
+  }, [user]);
+
   const addUser = async (event) => {
     event.preventDefault();
-
-    const hasError = validate(user, 'register');
-    setStatus(hasError);
-
-    // if (hasError.some((error) => !error));
-
-    // const saveDataForm = false; // implementar requisição ao backend
-
-    // if (!saveDataForm) {
-    //   setStatus([{
-    //     type: 'error',
-    //     message: 'Erro: usuário não foi cadastrado!',
-    //   }]);
-    // }
   };
 
   return (
     <div>
       <h1>Cadastro</h1>
 
-      { status.map((error, index) => (
-        error.type === 'success'
-          ? <p key={ index } style={ { color: 'green' } }>{error.message}</p>
-          : <p key={ index } style={ { color: 'red' } }>{error.message}</p>
-      ))}
+      { console.log(status, 'status')}
+      { (user?.name !== '' || user?.email !== '' || user?.password !== '')
+        && status?.map((error, index) => (
+          error?.type === 'success'
+            ? <p key={ index } style={ { color: 'green' } }>{error?.message}</p>
+            : <p key={ index } style={ { color: 'red' } }>{error?.message}</p>
+        ))}
 
       <section>
         <form onSubmit={ addUser }>
@@ -51,7 +49,7 @@ export default function Register() {
             name="name"
             placeholder="Seu nome"
             onChange={ valueInput }
-            value={ user.name }
+            value={ user?.name }
           />
           <input
             type="email"
@@ -60,7 +58,7 @@ export default function Register() {
             name="email"
             placeholder="seu-email@site.com.br"
             onChange={ valueInput }
-            value={ user.email }
+            value={ user?.email }
           />
           <input
             type="password"
@@ -69,11 +67,12 @@ export default function Register() {
             name="password"
             placeholder="***********"
             onChange={ valueInput }
-            value={ user.password }
+            value={ user?.password }
           />
           <button
             data-testid="common_register__button-register"
             type="submit"
+            disabled={ registerButtonState }
           >
             Cadastrar
 
