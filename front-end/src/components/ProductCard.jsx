@@ -1,40 +1,34 @@
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ShoppingCartStorage from '../utils/shoppingCartStorage';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 
 function ProductCard({ product }) {
-  const { name, price, urlImage, index } = product;
+  const { id, name, price, urlImage } = product;
   const [quantity, setQuantity] = useState(0);
-  const { setTotalPrice } = useContext(ShoppingCartContext);
-
-  useEffect(() => {
-    const item = ShoppingCartStorage.getItem(product);
-    setQuantity(item?.quantity || 0);
-  }, []);
+  const { handleItem } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     setQuantity((prev) => (prev < 0 ? 0 : prev));
-    ShoppingCartStorage.handlerItem({ ...product, quantity });
 
-    const prices = ShoppingCartStorage.getTotalPrice();
-    setTotalPrice(prices);
+    handleItem({ ...product, quantity });
   }, [quantity]);
 
   return (
-    <div data-testid={ `customer_products__element-card-price-${index}` }>
+    <>
       <span
-        data-testid={ `customer_products__element-card-price-${index}` }
+        data-testid={ `customer_products__element-card-price-${id}` }
       >
-        {price}
+        {`${price}`.replace(/\./, ',')}
       </span>
-      <image
-        data-testid={ `customer_products__img-card-bg-image-${index}` }
-        width="100%"
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        width="100px"
+        style={ { margin: 'auto' } }
+        alt={ name }
         src={ urlImage }
       />
       <span
-        data-testid={ `customer_products__element-card-title-${index}` }
+        data-testid={ `customer_products__element-card-title-${id}` }
       >
         {name}
       </span>
@@ -42,26 +36,27 @@ function ProductCard({ product }) {
       <div>
         <button
           onClick={ () => setQuantity((prev) => prev - 1) }
-          data-testid={ `customer_products__button-card-rm-item-${index}` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
         >
           -
         </button>
         <input
+          style={ { width: '30px', textAlign: 'center', padding: '0px' } }
           value={ quantity }
           onChange={ ({ target }) => setQuantity(target.value) }
-          data-testid={ `customer_products__input-card-quantity-${index}` }
+          data-testid={ `customer_products__input-card-quantity-${id}` }
           type="number"
         />
         <button
           onClick={ () => setQuantity((prev) => prev + 1) }
-          data-testid={ `customer_products__button-card-add-item-${index}` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
         >
           +
         </button>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -70,7 +65,7 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     image: PropTypes.string,
-    index: PropTypes.number,
+    id: PropTypes.number,
   }),
 }.isRequired;
 
