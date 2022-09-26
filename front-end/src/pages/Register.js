@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import validate from '../utils/validations';
+import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
 export default function Register() {
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   const [status, setStatus] = useState();
   const [registerButtonState, setRegisterButton] = useState(false);
@@ -42,7 +45,15 @@ export default function Register() {
         && status?.map((error, index) => (
           error?.type === 'success'
             ? <p key={ index } style={ { color: 'green' } }>{error?.message}</p>
-            : <p key={ index } style={ { color: 'red' } }>{error?.message}</p>
+            : (
+              <p
+                data-testid="common_register__element-invalid_register"
+                key={ index }
+                style={ { color: 'red' } }
+              >
+                {error?.message}
+              </p>
+            )
         ))}
 
       <section>
