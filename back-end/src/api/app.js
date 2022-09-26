@@ -2,7 +2,7 @@ require('dotenv/config');
 require('express-async-errors');
 const express = require('express');
 const cors = require('cors');
-const LoginRoutes = require('../routers/login.route');
+const UserRoutes = require('../routers/login.route');
 const ProductsRoutes = require('../routers/products.route');
 
 const errorMiddleware = require('../middlewares/error.middleware');
@@ -16,7 +16,7 @@ app.use(cors());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use('/login', LoginRoutes);
+app.use('/user', UserRoutes);
 app.use('/products', ProductsRoutes);
 app.use(errorMiddleware);
 
