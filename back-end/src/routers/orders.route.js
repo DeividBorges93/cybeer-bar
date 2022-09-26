@@ -4,6 +4,7 @@ const OrdersController = require('../controllers/orders.controller');
 const router = Router();
 
 router
-  .post('/', (req, res) => OrdersController.create(req, res));
+  .get('/', OrdersController.getByUserId)
+  .post('/', OrdersController.create);
 
 module.exports = router;

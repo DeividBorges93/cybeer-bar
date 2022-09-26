@@ -7,6 +7,7 @@ const ProductsRoutes = require('../routers/products.route');
 const OrdersRoutes = require('../routers/orders.route');
 
 const errorMiddleware = require('../middlewares/error.middleware');
+const validateToken = require('../middlewares/validateToken.middleware');
 
 const app = express();
 app.use(express.static('public'));
@@ -19,7 +20,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use('/user', UserRoutes);
 app.use('/products', ProductsRoutes);
-app.use('/orders', OrdersRoutes);
+app.use('/orders', validateToken, OrdersRoutes);
 app.use(errorMiddleware);
 
 module.exports = app;
