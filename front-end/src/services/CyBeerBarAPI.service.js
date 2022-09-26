@@ -1,5 +1,6 @@
 import axios from 'axios';
 import constants from '../utils/constants.util';
+import routesByRole from '../utils/routesByRole';
 
 const { status_code: { OK, CREATED } } = constants;
 
@@ -17,7 +18,7 @@ class CyBeerBarAPI {
     return axios.post('/user/login', data, this.options)
       .then(async (response) => {
         if (response.status === OK) {
-          navigate('/customer/products', { state: {
+          navigate(routesByRole[response.data.role], { state: {
             ...response.data,
           } });
         } else {
