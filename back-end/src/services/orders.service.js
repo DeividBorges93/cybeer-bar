@@ -1,8 +1,10 @@
+const setFilterByRole = require('../utils/setFilterByRole');
 const dbModel = require('../database/models');
 
 class OrdersService {
-  static async getByUserId(userId) {
-    const orders = await dbModel.sales.findAll({ where: { userId } });
+  static async getByUserId(id, role) {
+    const filter = setFilterByRole(id, role);
+    const orders = await dbModel.Sale.findAll({ where: filter });
     return orders;
   }
 }
