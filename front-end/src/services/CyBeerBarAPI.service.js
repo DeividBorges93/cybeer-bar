@@ -1,5 +1,6 @@
 import axios from 'axios';
 import constants from '../utils/constants.util';
+import getStoredToken from '../utils/getStoredToken';
 import routesByRole from '../utils/routesByRole';
 
 const { status_code: { OK } } = constants;
@@ -41,6 +42,13 @@ class CyBeerBarAPI {
   async restoreProducts() {
     return axios.get('/products', this.options)
       .then((response) => response.data.products)
+      .catch((error) => console.error(error.message));
+  }
+
+  async getOrders() {
+    const Authorization = getStoredToken();
+    return axios.get('/orders', { ...this.options, headers: { Authorization } })
+      .then((response) => response.data)
       .catch((error) => console.error(error.message));
   }
 }
