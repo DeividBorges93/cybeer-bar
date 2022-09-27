@@ -9,7 +9,8 @@ const columns = [{ value: 'Item' },
   { value: 'Remover Item' }];
 
 export default function TableGenerator() {
-  const { items, removeItem } = useContext(ShoppingCartContext);
+  const { items, removeItem, mulSubTotal, handleItem } = useContext(ShoppingCartContext);
+
   return (
     <table>
       <thead>
@@ -33,19 +34,19 @@ export default function TableGenerator() {
             <td
               data-testid={ `customer_checkout__element-order-table-quantity-${id}` }
             >
-              { item.quantity }
+              <input value={ item.quantity } onChange={ () => handleItem(item) } />
 
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-unit-price-${id}` }
             >
-              { item.price }
+              { (item.price).replace(',', '.') }
 
             </td>
             <td
               data-testid={ `customer_checkout__element-order-table-sub-total-${id}` }
             >
-              { (item.quantity * item.price).toFixed(2) }
+              { mulSubTotal(item) }
 
             </td>
             <td
@@ -62,7 +63,6 @@ export default function TableGenerator() {
           </tr>
         ))}
       </tbody>
-
     </table>
   );
 }
