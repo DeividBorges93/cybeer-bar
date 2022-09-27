@@ -32,8 +32,13 @@ export default function Register() {
     const hasError = validate(user, 'register');
     const noError = hasError.every((err) => !err);
 
-    if (noError) await new CyBeerBarAPI().register(user, [navigate, setStatus]);
-    else setStatus(hasError);
+    if (noError) {
+      const { email, password } = user;
+      await new CyBeerBarAPI().register(user, [setStatus]);
+      await new CyBeerBarAPI().login({ email, password }, [navigate, setStatus]);
+    } else {
+      setStatus(hasError);
+    }
   };
 
   return (

@@ -2,14 +2,11 @@ import axios from 'axios';
 import constants from '../utils/constants.util';
 import routesByRole from '../utils/routesByRole';
 
-const { status_code: { OK, CREATED } } = constants;
+const { status_code: { OK } } = constants;
 
 class CyBeerBarAPI {
   options = {
     baseURL: 'http://localhost:3001',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
   };
 
   async login(data, callbacks) {
@@ -31,18 +28,8 @@ class CyBeerBarAPI {
   }
 
   async register(data, callbacks) {
-    const [navigate, setFormatError] = callbacks;
+    const [setFormatError] = callbacks;
     return axios.post('/user/register', data, this.options)
-      .then(async (response) => {
-        if (response.status === CREATED) {
-          navigate('/customer/products');
-        } else {
-          setFormatError([{
-            type: 'error',
-            message: `Erro: ${response.data?.message}`,
-          }]);
-        }
-      })
       .catch(() => {
         setFormatError([{
           type: 'error',
