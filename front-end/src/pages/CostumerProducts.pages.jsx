@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
@@ -10,11 +10,9 @@ function CostumerProducts() {
   const [products, setProducts] = useState([]);
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(true);
 
-  const { state } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(state));
     new CyBeerBarAPI().restoreProducts().then((data) => setProducts(data));
   }, []);
 
