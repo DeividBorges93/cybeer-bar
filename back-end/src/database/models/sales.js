@@ -8,27 +8,33 @@ const SalesModel = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      foreignKey: true
+      foreignKey: true,
+      field: 'user_id',
     },
     sellerId: {
       type: DataTypes.INTEGER,
-      foreignKey: true
+      foreignKey: true,
+      field: 'seller_id',
     },
     totalPrice: {
       type: DataTypes.DECIMAL(9,2),
       allowNull: false,
+      field: 'total_price',
     },
     deliveryAddress: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'delivery_address',
     },
     deliveryNumber: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      field: 'delivery_number',
     },
     saleDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      field: 'sale_date',
     },
     status: {
       type: DataTypes.STRING,

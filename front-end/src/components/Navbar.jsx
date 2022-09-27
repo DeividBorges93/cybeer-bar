@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [userName, setUserName] = useState('');
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const logout = () => {
     localStorage.removeItem('user');
@@ -12,7 +11,8 @@ function Navbar() {
   };
 
   useEffect(() => {
-    setUserName(state?.name);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) setUserName(user.name);
   }, []);
 
   return (

@@ -8,6 +8,9 @@ class CustomError extends Error {
 
   setCode() {
     switch (this.name) {
+      case 'Conflict':
+        this.code = 409;
+        break;
       case 'validationError':
         this.code = 400;
         break;
