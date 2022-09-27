@@ -20,9 +20,7 @@ class CyBeerBarAPI {
         if (response.status === OK) {
           const { password, ...userData } = response.data;
           localStorage.setItem('user', JSON.stringify(userData));
-          const user = await JSON.parse(localStorage.getItem('user'));
-
-          if (user) navigate(routesByRole[response.data.role]);
+          navigate(routesByRole[response.data.role]);
         } else {
           setFormatError(response.data.message);
         }
