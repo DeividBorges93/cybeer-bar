@@ -1,3 +1,10 @@
+import Navbar from '../components/Navbar';
+
 export default function Admin() {
-  return (<p>Admin page</p>);
+  return (
+    <>
+      <Navbar />
+      <p>Admin page</p>
+    </>
+  );
 }
