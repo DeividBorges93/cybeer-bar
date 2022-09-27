@@ -9,8 +9,7 @@ const columns = [{ value: 'Item' },
   { value: 'Remover Item' }];
 
 export default function TableGenerator() {
-  const { items, removeItem, mulSubTotal, handleItem } = useContext(ShoppingCartContext);
-
+  const { items, removeItem } = useContext(ShoppingCartContext);
   return (
     <table>
       <thead>
@@ -19,38 +18,38 @@ export default function TableGenerator() {
         </tr>
       </thead>
       <tbody>
-        {items.map((item, id) => (
-          <tr key={ id }>
+        {items.map((item, i) => (
+          <tr key={ i }>
             <td
-              data-testid={ `customer_checkout__element-order-table-item-number-${id}` }
+              data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
             >
-              { item.id }
+              { i + 1 }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-name-${id}` }
+              data-testid={ `customer_checkout__element-order-table-name-${i}` }
             >
               { item.name }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-quantity-${id}` }
+              data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
             >
-              <input value={ item.quantity } onChange={ () => handleItem(item) } />
+              <p>{ (item.quantity).toString().replace('.', ',') }</p>
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-unit-price-${id}` }
+              data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
             >
-              { (item.price).replace(',', '.') }
+              { (item.price).replace('.', ',') }
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-sub-total-${id}` }
+              data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
             >
-              { mulSubTotal(item) }
+              { (item.quantity * item.price).toFixed(2).replace('.', ',') }
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-remove-${id}` }
+              data-testid={ `customer_checkout__element-order-table-remove-${i}` }
             >
               <button
                 type="button"
