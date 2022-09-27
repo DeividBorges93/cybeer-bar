@@ -29,8 +29,12 @@ class CyBeerBarAPI {
   }
 
   async register(data, callbacks) {
-    const [setFormatError] = callbacks;
+    const [navigate, setFormatError] = callbacks;
     return axios.post('/user/register', data, this.options)
+      .then(() => {
+        const { email, password } = data;
+        this.login({ email, password }, [navigate, setFormatError]);
+      })
       .catch(() => {
         setFormatError([{
           type: 'error',
