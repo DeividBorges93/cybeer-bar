@@ -25,12 +25,7 @@ function CostumerProducts() {
       <div className="containerProducts">
         {
           products?.map((product, index) => (
-            <div
-              key={ index }
-              className="divCard"
-            >
-              <ProductCard product={ product } />
-            </div>
+            <ProductCard key={ index } product={ product } />
           ))
         }
       </div>
