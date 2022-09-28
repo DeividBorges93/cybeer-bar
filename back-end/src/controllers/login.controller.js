@@ -11,6 +11,11 @@ class LoginController {
     res.status(201).json({ user });
   }
 
+  static async getSellers(req, res) {
+    const sellers = await LoginService.getSellers();
+    res.status(200).json({ sellers });
+  }
+
   static async decryptToken(req, res) {    
     const data = await LoginService.decryptToken(req.body.token);
     delete data.iat;
