@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
-import '../style/login.css';
+import './style/login.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function Login() {
           data-testid="common_login__input-email"
           value={ emailState }
           onChange={ ({ target }) => { validateEmail(target.value); } }
-          placeholder="Seu login"
+          placeholder="login"
         />
         <input
           aria-label="password"
@@ -61,7 +61,7 @@ export default function Login() {
           data-testid="common_login__input-password"
           value={ passwordState }
           onChange={ ({ target }) => { validatePassword(target.value); } }
-          placeholder="***********"
+          placeholder="password"
         />
         <div>
           <button

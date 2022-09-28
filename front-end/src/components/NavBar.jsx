@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import NavbarAdmin from './NavBarAdmin';
+import NavbarSeller from './NavBarSeller';
+import NavbarCustumer from './NavBarCustomer';
 
 function Navbar() {
   const [userName, setUserName] = useState('');
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -14,22 +18,16 @@ function Navbar() {
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state));
     setUserName(state?.name);
+    setUserRole(state?.role);
   }, []);
 
   return (
-    <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-      <Link to="/customer/products">
-        <span data-testid="customer_products__element-navbar-link-products">
-          Produtos
-        </span>
-      </Link>
-      <Link to="/customer/orders">
-        <span data-testid="customer_products__element-navbar-link-orders">
-          Meus pedidos
-        </span>
-      </Link>
+    <header>
+      {userRole === 'administrator' && <NavbarAdmin />}
+      {userRole === 'seller' && <NavbarSeller />}
+      {userRole === 'customer' && <NavbarCustumer />}
       <span data-testid="customer_products__element-navbar-user-full-name">
-        { userName }
+        {userName}
       </span>
       <button
         onClick={ logout }
@@ -38,8 +36,8 @@ function Navbar() {
       >
         Sair
       </button>
-    </div>
+
+    </header>
   );
 }
-
 export default Navbar;
