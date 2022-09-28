@@ -5,12 +5,15 @@ import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 function CustomerOrders() {
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => new CyBeerBarAPI().getOrders().then(setOrders), []);
+  useEffect(() => {
+    new CyBeerBarAPI().getOrders()
+      .then((data) => setOrders(data));
+  }, []);
 
   return (
     <section>
-      { orders.map((order) => (
-        <OrderCard key={ order.id } orderId={ order.id } />
+      { orders?.map((order) => (
+        <OrderCard key={ order.id } order={ order } />
       )) }
     </section>
   );
