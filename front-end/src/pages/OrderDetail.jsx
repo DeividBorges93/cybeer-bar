@@ -1,10 +1,10 @@
 import Navbar from '../components/Navbar';
 
-export default function Seller() {
+export default function OrderDetail() {
   return (
     <>
       <Navbar />
-      <p>Seller page</p>
+      <p>OrderDetail page</p>
     </>
   );
 }

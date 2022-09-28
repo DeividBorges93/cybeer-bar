@@ -8,19 +8,35 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      totalPrice: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      seller_id: {
+        type: Sequelize.INTEGER,
+        foreignKey: true,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+      },
+      total_price: {
         type: Sequelize.DECIMAL(9,2),
         allowNull: false,
       },
-      deliveryAddress: {
+      delivery_address: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      deliveryNumber: {
-        type: Sequelize.INTEGER,
+      delivery_number: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      saleDate: {
+      sale_date: {
         type: Sequelize.DATE,
         allowNull: false,
       },
