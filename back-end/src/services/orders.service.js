@@ -31,7 +31,8 @@ class OrdersService {
   static async getDetails(id) {
     const orderDetails = await dbModel.Sale.findOne({
       where: { id },
-      include: { model: dbModel.SalesProducts, where: { saleId: id }, as: 'salesProducts' },
+      include: [{ model: dbModel.SalesProducts, where: { saleId: id }, as: 'salesProducts' },
+      { model: dbModel.User, as: 'sellers', attributes: ["name"] }],
     });
 
     return orderDetails;
