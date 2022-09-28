@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
@@ -12,6 +13,7 @@ function CustomerOrders() {
 
   return (
     <section>
+      <Navbar />
       { orders?.map((order) => (
         <OrderCard key={ order.id } order={ order } />
       )) }
