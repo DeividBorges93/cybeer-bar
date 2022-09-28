@@ -27,6 +27,15 @@ class OrdersService {
     const orders = await dbModel.Sale.findAll({ where: filter });
     return orders;
   }
+
+  static async getDetails(id) {
+    const orderDetails = await dbModel.Sale.findOne({
+      where: { id },
+      include: { model: dbModel.SalesProducts, where: { saleId: id }, as: 'salesProducts' },
+    });
+
+    return orderDetails;
+  }
 }
 
 module.exports = OrdersService;
