@@ -5,6 +5,7 @@ const router = Router();
 
 router
   .get('/', OrdersController.getByUserId)
-  .post('/', OrdersController.create);
+  .post('/', OrdersController.create)
+  .get('/:id', OrdersController.getDetails);
 
 module.exports = router;
