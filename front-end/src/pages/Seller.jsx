@@ -1,3 +1,10 @@
+import Navbar from '../components/Navbar';
+
 export default function Seller() {
-  return (<p>Seller page</p>);
+  return (
+    <>
+      <Navbar />
+      <p>Seller page</p>
+    </>
+  );
 }
