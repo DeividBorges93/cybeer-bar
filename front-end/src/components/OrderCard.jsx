@@ -1,26 +1,30 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function OrderCard(props) {
-  const { orderId, status, date, value } = props;
+function OrderCard({ order }) {
+  const { id, status, saleDate, totalPrice } = order;
 
   return (
     <div>
-      <p data-testid={ `customer_orders__element-order-id-${orderId}` }>{ orderId }</p>
-      <p data-testid={ `customer_orders__element-delivery-status-${orderId}` }>
-        { status }
+      <p data-testid={ `customer_orders__element-order-id-${id}` }>{id}</p>
+      <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
+        {status}
       </p>
-      <p data-testid={ `customer_orders__element-order-date-${orderId}` }>{ date }</p>
-      <p data-testid={ `customer_orders__element-card-price-${orderId}` }>{ value }</p>
+      <p data-testid={ `customer_orders__element-order-date-${id}` }>
+        {new Date(saleDate).toLocaleDateString('pt-BR')}
+      </p>
+      <p data-testid={ `customer_orders__element-card-price-${id}` }>{totalPrice}</p>
     </div>
   );
 }
 
 OrderCard.propTypes = {
-  orderId: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
-  value: PropTypes.number.isRequired,
+  order: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
+  }).isRequired,
 };
 
 export default OrderCard;
