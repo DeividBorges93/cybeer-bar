@@ -4,4 +4,4 @@ const getStoredToken = () => {
   return userData.token;
 };
 
-module.exports = getStoredToken;
+export default getStoredToken;
