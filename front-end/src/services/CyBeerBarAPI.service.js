@@ -56,11 +56,12 @@ class CyBeerBarAPI {
   }
 
   async saveOrder(data, navigate) {
+    const { role } = JSON.parse(localStorage.getItem('user'));
     const Authorization = getStoredToken();
     return axios.post('/orders', data, { ...this.options, headers: { Authorization } })
       .then((response) => {
         if (response.status === CREATED) {
-          navigate(`/customer/orders/${response.data.order.id}`);
+          navigate(`/${role}/orders/${response.data.order.id}`);
         } else {
           console.log(response.data.message);
         }
