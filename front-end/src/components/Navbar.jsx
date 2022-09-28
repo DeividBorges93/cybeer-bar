@@ -16,7 +16,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div style={ { display: 'flex', justifyContent: 'space-between' } }>
+    <div style={ { width: '400px', display: 'flex', justifyContent: 'space-between' } }>
       <Link to="/customer/products">
         <span data-testid="customer_products__element-navbar-link-products">
           Produtos

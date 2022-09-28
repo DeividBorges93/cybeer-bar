@@ -15,6 +15,7 @@ class LoginService {
     const token = JwtUtils.createToken(user);      
 
     return {
+      id: user.id,
       name: user.name,
       email: user.email,
       password: user.password,
@@ -35,6 +36,11 @@ class LoginService {
       role: 'customer',
     });  
     return user;    
+  }
+
+  static async getSellers() {
+    const sellers = await dbModel.User.findAll({ where: { role: 'seller' } });
+    return sellers;
   }
 
   static async decryptToken(token) {
