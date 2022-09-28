@@ -37,6 +37,7 @@ function Router() {
         <Route element={ <OrderDetail /> } path="/customer/orders/:id" />
         <Route element={ <Admin /> } path="/admin/manage" />
         <Route element={ <SellerOrders /> } path="/seller/orders" />
+        <Route element={ <OrderDetail /> } path="/seller/orders/:id" />
       </Routes>
     </BrowserRouter>
   );
