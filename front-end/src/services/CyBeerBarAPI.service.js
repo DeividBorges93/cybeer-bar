@@ -74,6 +74,13 @@ class CyBeerBarAPI {
       .then((response) => response.data)
       .catch((error) => console.error(error.message));
   }
+
+  async getOrdersDetails(id) {
+    const Authorization = getStoredToken();
+    return axios.get(`/orders/${id}`, { ...this.options, headers: { Authorization } })
+      .then((response) => response.data)
+      .catch((error) => console.error(error.message));
+  }
 }
 
 export default CyBeerBarAPI;
