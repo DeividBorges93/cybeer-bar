@@ -70,7 +70,7 @@ class CyBeerBarAPI {
     const Authorization = getStoredToken();
     return axios.post('/orders', data, { ...this.options, headers: { Authorization } })
       .then((response) => {
-        if (response.status === OK) {
+        if (response.status === CREATED) {
           navigate(`/customer/orders/${response.data.order.id}`);
         } else {
           console.log(response.data.message);
