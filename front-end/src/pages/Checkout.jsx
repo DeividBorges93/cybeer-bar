@@ -1,11 +1,33 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useRef, useState, useEffect } from 'react';
 import TableGenerator from '../components/TableGenerator';
 import Navbar from '../components/Navbar';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
+import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
+import { formatOrderRequest } from '../utils/formatters';
 
 export default function CustomerCheckout() {
-  const { getTotalPrice } = useContext(ShoppingCartContext);
+  const [sellers, setSellers] = useState();
+  const { items, getTotalPrice } = useContext(ShoppingCartContext);
+  const deliveryAddressRef = useRef();
+  const deliveryNumberRef = useRef();
+  const sellerRef = useRef();
+
+  useEffect(() => {
+    new CyBeerBarAPI().getSellers()
+      .then((data) => setSellers(data));
+  }, []);
+
+  const saveOrder = () => {
+    new CyBeerBarAPI().saveOrder(
+      formatOrderRequest({
+        items,
+        totalPrice: getTotalPrice(),
+        sellerRef,
+        deliveryAddressRef,
+        deliveryNumberRef,
+      }),
+    );
+  };
 
   return (
     <div>
@@ -20,10 +42,13 @@ export default function CustomerCheckout() {
           P. vendedora Responsável
           <select
             id="pVendedora"
+            ref={ sellerRef }
             name="pVendedora"
             data-testid="customer_checkout__select-seller"
           >
-            <option value="PV1">Vendedor1</option>
+            { sellers?.map((seller) => (
+              <option key={ seller.id } value={ seller.id }>{ seller.name }</option>
+            ))}
           </select>
         </label>
         <label htmlFor="endereco">
@@ -31,6 +56,7 @@ export default function CustomerCheckout() {
           <input
             id="endereco"
             name="endereco"
+            ref={ deliveryAddressRef }
             data-testid="customer_checkout__input-address"
             placeholder="Ex: rua minha rua, Bairro meu bairro"
           />
@@ -40,19 +66,19 @@ export default function CustomerCheckout() {
           <input
             id="numero"
             name="numero"
+            ref={ deliveryNumberRef }
             data-testid="customer_checkout__input-address-number"
             placeholder="Ex: 198"
           />
         </label>
       </div>
-      <Link to="/customer/orders">
-        <button
-          type="button"
-          data-testid="customer_checkout__button-submit-order"
-        >
-          Finalizar Pedido
-        </button>
-      </Link>
+      <button
+        onClick={ saveOrder }
+        type="button"
+        data-testid="customer_checkout__button-submit-order"
+      >
+        Finalizar Pedido
+      </button>
     </div>
   );
 }
