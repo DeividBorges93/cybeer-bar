@@ -1,0 +1,14 @@
+.divCard {
+  display: flex;
+  flex-direction: column;
+  height: 270px;
+  justify-content: center;
+  width: 170px;
+}
+
+.containerProducts {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 15vh;
+  width: 70vw;
+}
