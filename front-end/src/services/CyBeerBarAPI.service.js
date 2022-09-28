@@ -43,10 +43,28 @@ class CyBeerBarAPI {
       });
   }
 
+  async getSellers() {
+    return axios.get('/user/sellers', this.options)
+      .then((response) => response.data.sellers)
+      .catch((error) => console.error(error.message));
+  }
+
   async restoreProducts() {
     return axios.get('/products', this.options)
       .then((response) => response.data.products)
       .catch((error) => console.error(error.message));
+  }
+
+  async saveOrder(data, navigate) {
+    const Authorization = getStoredToken();
+    return axios.post('/orders', data, { ...this.options, headers: { Authorization } })
+      .then((response) => {
+        if (response.status === CREATED) {
+          navigate(`/customer/orders/${response.data.order.id}`);
+        } else {
+          console.log(response.data.message);
+        }
+      });
   }
 
   async getOrders() {

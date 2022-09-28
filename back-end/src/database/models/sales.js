@@ -27,7 +27,7 @@ const SalesModel = (sequelize, DataTypes) => {
       field: 'delivery_address',
     },
     deliveryNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       field: 'delivery_number',
     },
