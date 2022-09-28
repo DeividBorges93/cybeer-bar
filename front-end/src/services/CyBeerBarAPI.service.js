@@ -66,10 +66,16 @@ class CyBeerBarAPI {
       .catch((error) => console.error(error.message));
   }
 
-  async saveOrder(data) {
+  async saveOrder(data, navigate) {
     const Authorization = getStoredToken();
     return axios.post('/orders', data, { ...this.options, headers: { Authorization } })
-      .then((response) => response.data.products)
+      .then((response) => {
+        if (response.status === OK) {
+          navigate(`/customer/orders/${response.data.order.id}`);
+        } else {
+          console.log(response.data.message);
+        }
+      })
       .catch((error) => console.error(error.message));
   }
 }
