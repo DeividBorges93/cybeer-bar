@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
-import '../style/login.css';
+import './style/login.css';
 import routesByRole from '../utils/routesByRole';
 
 export default function Login() {
