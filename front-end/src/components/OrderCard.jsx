@@ -35,7 +35,7 @@ OrderCard.propTypes = {
     saleDate: PropTypes.string,
     totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
-    deliveryNumber: PropTypes.number,
+    deliveryNumber: PropTypes.string,
   }).isRequired,
 };
 
