@@ -25,6 +25,10 @@ const ProductModel = (sequelize, DataTypes) => {
     underscored: true,
   });
 
+  Products.associate = (models) => {
+    Products.hasMany(models.SalesProducts, { foreignKey: 'productId', as: 'sales' })
+  }
+
   return Products;
 };
 
