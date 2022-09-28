@@ -11,7 +11,7 @@ export const formatOrderRequest = (params) => {
     salesProduct: [...formatProductOrder(items)],
     totalPrice,
     userId: JSON.parse(localStorage.getItem('user')).id,
-    sellerId: Number(sellerRef.current.value),
+    sellerId: sellerRef.current.value,
     deliveryAddress: deliveryAddressRef.current.value,
     deliveryNumber: deliveryNumberRef.current.value,
     status: 'Pendente',
