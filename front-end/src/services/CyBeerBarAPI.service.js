@@ -3,7 +3,7 @@ import constants from '../utils/constants.util';
 import getStoredToken from '../utils/getStoredToken';
 import routesByRole from '../utils/routesByRole';
 
-const { status_code: { OK } } = constants;
+const { status_code: { OK, CREATED } } = constants;
 
 class CyBeerBarAPI {
   options = {
