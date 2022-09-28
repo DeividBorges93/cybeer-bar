@@ -7,6 +7,7 @@ import CostumerProducts from '../pages/CostumerProducts.pages';
 import CustomerCheckout from '../pages/Checkout';
 import Admin from '../pages/Admin';
 import Seller from '../pages/Seller';
+import CustomerOrders from '../pages/CustomerOrders.page';
 import OrderDetail from '../pages/OrderDetail';
 
 function Router() {
@@ -32,6 +33,7 @@ function Router() {
             </ShoppingCartProvider>
           }
         />
+        <Route element={ <CustomerOrders /> } path="/customer/orders" />
         <Route element={ <OrderDetail /> } path="/customer/orders/:id" />
         <Route element={ <Admin /> } path="/admin/manage" />
         <Route element={ <Seller /> } path="/seller/orders" />
