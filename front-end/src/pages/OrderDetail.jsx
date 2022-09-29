@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-// import OrderProducts from '../components/OrderProducts';
+import OrderProducts from '../components/OrderProducts';
 import Navbar from '../components/Navbar';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
 export default function OrderDetail() {
   const [order, setOrder] = useState({});
 
+  const deliveryButton = useRef();
+
   const { id } = useParams();
   useEffect(() => {
     new CyBeerBarAPI().getOrdersDetails(id).then(setOrder);
   }, []);
+
+  useEffect(() => {
+    deliveryButton.current.disabled = order.status !== 'Entregue';
+  }, [order.status]);
 
   console.log(order);
   return (
@@ -39,15 +45,16 @@ export default function OrderDetail() {
           {order.status}
         </span>
         <button
+          ref={ deliveryButton }
           type="button"
           data-testid="customer_order_details__button-delivery-check"
         >
           MARCAR COMO ENTREGUE
         </button>
       </p>
-      {/* <OrderProducts /> */}
+      <OrderProducts items={ order.salesProduscts } />
       <p data-testid="customer_order_details__element-order-total-price">
-        {order.totalPrice}
+        {order.totalPrice?.replace('.', ',')}
       </p>
     </div>
   );
