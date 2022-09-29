@@ -10,7 +10,6 @@ class OrdersService {
   }
 
   static async createSalesProduct(salesProduct, saleId) {
-    console.log(salesProduct);
     const productsOrder = await Promise.all(salesProduct.map((product) => (
       dbModel.SalesProducts.create({
         saleId,
@@ -31,9 +30,12 @@ class OrdersService {
   static async getDetails(id) {
     const orderDetails = await dbModel.Sale.findOne({
       where: { id },
-      include: { model: dbModel.SalesProducts, where: { saleId: id }, as: 'salesProducts' },
-    });
+      include: [
+        { model: dbModel.User, as: 'sellers', attributes: ['name'] },
+        { model: dbModel.Product, as: 'Products' },
+      ],
 
+    });
     return orderDetails;
   }
 }

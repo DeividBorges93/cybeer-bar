@@ -1,19 +1,10 @@
-/* stylelint-disable value-list-comma-space-before */
-:root {
+/* :root {
 
   --main-color: #070612;
 
   --white-color: rgb(245, 244, 244);
 
   --pink-color: hsl(314, 99%, 41%);
-
-
-  /*  --blue-color: #31E1F7;
-
-
-  --orange-color: #FF7777;
-
-  */
 }
 
 body {
@@ -107,4 +98,4 @@ form {
 .Title {
   font-size: 50px;
   margin-top: 19vh;
-}
+} */
