@@ -1,4 +1,3 @@
-const { verify } = require('jsonwebtoken');
 const OrdersService = require('../services/orders.service');
 const verifyPermission = require('../utils/verifyPermission');
 
@@ -19,7 +18,7 @@ class OrdersController {
     const orderDetails = await OrdersService.getDetails(id);
     const { userId, sellerId } = orderDetails;
     const tokenId = req.payload.id;
-    verifyPermission([userId, sellerId], tokenId)
+    verifyPermission([userId, sellerId], tokenId);
     res.status(200).json(orderDetails);
   }
 }
