@@ -52,7 +52,7 @@ export default function OrderDetail() {
           MARCAR COMO ENTREGUE
         </button>
       </p>
-      <OrderProducts items={ order.salesProduscts } />
+      <OrderProducts items={ order.Products } />
       <p data-testid="customer_order_details__element-order-total-price">
         {order.totalPrice?.replace('.', ',')}
       </p>

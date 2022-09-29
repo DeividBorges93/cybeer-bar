@@ -15,7 +15,7 @@ function OrderProducts({ items }) {
         </tr>
       </thead>
       <tbody>
-        {items?.map(({ name, price, quantity }, i) => (
+        {items?.map(({ name, price, SalesProducts: { quantity } }, i) => (
           <tr key={ i }>
             <td
               data-testid={
