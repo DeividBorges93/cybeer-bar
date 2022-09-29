@@ -32,10 +32,18 @@ class OrdersService {
     const orderDetails = await dbModel.Sale.findOne({
       where: { id },
       include: [{ model: dbModel.SalesProducts, where: { saleId: id }, as: 'salesProducts' },
-      { model: dbModel.User, as: 'sellers', attributes: ["name"] }],
+      { model: dbModel.User, as: 'sellers', attributes: ['name'] }],
     });
-
-    return orderDetails;
+    const salesProducts = await Promise.all(
+      orderDetails.salesProducts.map(({ productId }) => (
+        dbModel.Product
+          .findOne({ where: { id: productId }, attributes: ['name', 'price'], raw: true }))),
+    );
+    const orderInfo = orderDetails.dataValues;
+    orderInfo.salesProducts = salesProducts.map(({ name, price }, index) => ({
+      name, price, quantity: orderInfo.salesProducts[index].quantity,
+    }));
+    return orderInfo;
   }
 }
 
