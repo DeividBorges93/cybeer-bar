@@ -1,0 +1,84 @@
+:root {
+
+  --main-color: #070612;
+
+  --white-color: white;
+
+  --pink-color: hsl(314, 99%, 41%);
+
+  --blue-color: #30dcf3;
+
+
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+.cardDiv {
+  background-color: var(--white-color);
+  border: 2px solid var(--pink-color);
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  justify-content: flex-start;
+  margin: 5px;
+  width: 150px;
+}
+
+.price {
+  color: var(--pink-color);
+  font-weight: 900;
+}
+
+.name {
+  color: var(--main-color);
+  margin: auto;
+  overflow: hidden;
+  text-align: start;
+  white-space: nowrap;
+  width: 70%;
+}
+
+.beerImg {
+  object-fit: contain;
+  width: 100%;
+}
+
+.controlQuantity {
+  display: flex;
+}
+
+.productQuantity {
+  background-color: var(--white-color);
+  color: var(--main-color);
+  padding: 0;
+  text-align: center;
+  width: 30px;
+}
+
+.subtract {
+  background-color: white;
+  border: none;
+  color: var(--pink-color);
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.add {
+  background-color: white;
+  border: none;
+  color: var(--blue-color);
+  font-size: 30px;
+  font-weight: 900;
+  width: 0;
+}
+
+.centerDiv {
+  align-items: center;
+  display: flex;
+}

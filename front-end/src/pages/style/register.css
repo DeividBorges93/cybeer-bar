@@ -1,45 +1,23 @@
-/* :root {
+:root {
 
   --main-color: #070612;
 
   --white-color: rgb(245, 244, 244);
 
   --pink-color: hsl(314, 99%, 41%);
-}
 
-body {
-  align-items: center;
-  background-color: var(--main-color);
-  color: var(--white-color);
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
+  --blue-color: #30dcf3;
 
-input {
-  background-color: var(--main-color);
-  border: none;
-  border-bottom: 2px solid var(--white-color);
-  color: var(--white-color);
-  font-size: 16px;
-  letter-spacing: 1px;
-  line-height: 1.3;
-  margin: 10px;
-  padding: 7px;
-  width: 300px;
 
 }
 
-.registerOption {
-  background-color: transparent;
-  border: none;
-  color: var(--white-color);
-  cursor: pointer;
-  width: 300px;
-
+.errorRegister {
+  color: var(--blue-color);
 }
 
-.btnLogin {
+
+.btnRegister {
+  animation: btnRegister 01s linear infinite;
   background-color: transparent;
   border: var(--pink-color) 3px solid;
   border-radius: 5px;
@@ -54,7 +32,14 @@ input {
   width: 270px;
 }
 
-.btnLogin:before {
+@keyframes btnRegister {
+
+  0% { opacity: 0.85; }
+
+  50% { opacity: 1; }
+}
+
+.btnRegister:before {
   background: var(--pink-color);
   content: '';
   filter: blur(70px);
@@ -69,18 +54,6 @@ input {
 
 }
 
-.btnLogin:hover {
+.btnRegister:hover {
   background-color: #f1b;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-top: 10vh;
-}
-
-.Title {
-  font-size: 50px;
-  margin-top: 19vh;
-} */

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
+import './style/costumerProducts.css';
 
 function CostumerProducts() {
   const { items, getTotalPrice } = useContext(ShoppingCartContext);
@@ -21,21 +22,10 @@ function CostumerProducts() {
   return (
     <div>
       <Navbar />
-      <div style={ { display: 'flex', margin: '50px auto', flexWrap: 'wrap' } }>
+      <div className="containerProducts">
         {
           products?.map((product, index) => (
-            <div
-              key={ index }
-              style={ {
-                border: '1px solid white',
-                width: '150px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              } }
-            >
-              <ProductCard product={ product } />
-            </div>
+            <ProductCard key={ index } product={ product } />
           ))
         }
       </div>
