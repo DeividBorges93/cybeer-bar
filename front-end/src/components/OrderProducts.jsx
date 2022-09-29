@@ -1,4 +1,6 @@
-export default function OrderProducts() {
+import PropTypes from 'prop-types';
+
+function OrderProducts({ items }) {
   const columns = [{ value: 'Item' },
     { value: 'Descrição' },
     { value: 'Quantidade' },
@@ -13,7 +15,7 @@ export default function OrderProducts() {
         </tr>
       </thead>
       <tbody>
-        {items.map((item, i) => (
+        {items?.map(({ name, price, quantity }, i) => (
           <tr key={ i }>
             <td
               data-testid={
@@ -25,12 +27,12 @@ export default function OrderProducts() {
             <td
               data-testid={ `customer_order_details__element-order-table-name-${i}` }
             >
-              { item.name }
+              { name }
             </td>
             <td
               data-testid={ `customer_order_details__element-order-table-quantity-${i}` }
             >
-              <p>{ (item.quantity).toString().replace('.', ',') }</p>
+              <p>{ quantity }</p>
 
             </td>
             <td
@@ -38,13 +40,13 @@ export default function OrderProducts() {
                 `customer_order_details__element-order-table-unit-price-${i}`
               }
             >
-              { (item.price).replace('.', ',') }
+              { (price).replace('.', ',') }
 
             </td>
             <td
               data-testid={ `customer_order_details__element-order-table-sub-total-${i}` }
             >
-              { (item.quantity * item.price).toFixed(2).replace('.', ',') }
+              { (quantity * price).toString().replace('.', ',') }
 
             </td>
           </tr>
@@ -53,3 +55,17 @@ export default function OrderProducts() {
     </table>
   );
 }
+
+OrderProducts.defaultProps = {
+  items: [],
+};
+
+OrderProducts.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.string,
+    quantity: PropTypes.number,
+  })),
+};
+
+export default OrderProducts;
