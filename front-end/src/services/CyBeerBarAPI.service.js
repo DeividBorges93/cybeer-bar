@@ -2,7 +2,7 @@ import axios from 'axios';
 import constants from '../utils/constants.util';
 import routesByRole from '../utils/routesByRole';
 
-const { status_code: { OK, CREATED } } = constants;
+const { status_code: { OK } } = constants;
 
 class CyBeerBarAPI {
   options = {
@@ -30,25 +30,10 @@ class CyBeerBarAPI {
       });
   }
 
-  async register(data, callbacks) {
-    const [navigate, setFormatError] = callbacks;
+  async register(data) {
     return axios.post('/user/register', data, this.options)
-      .then(async (response) => {
-        if (response.status === CREATED) {
-          navigate('/customer/products');
-        } else {
-          setFormatError([{
-            type: 'error',
-            message: `Erro: ${response.data?.message}`,
-          }]);
-        }
-      })
-      .catch(() => {
-        setFormatError([{
-          type: 'error',
-          message: 'Erro: Email já cadastrado!',
-        }]);
-      });
+      .then((response) => response)
+      .catch((error) => error);
   }
 
   async restoreProducts() {
