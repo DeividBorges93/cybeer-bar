@@ -23,7 +23,7 @@ function ShoppingCartProvider({ children }) {
     if (exist) {
       if (quantity === 0) removeItem(product);
       else updateItem(product);
-    } else {
+    } else if (quantity > 0) {
       addItem(product);
     }
   };

@@ -4,8 +4,11 @@ import ShoppingCartProvider from '../contexts/ShoppingCartProvider.context';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import CostumerProducts from '../pages/CostumerProducts.pages';
+import CustomerCheckout from '../pages/Checkout';
 import Admin from '../pages/Admin';
-import Seller from '../pages/Seller';
+import SellerOrders from '../pages/SellerOrders.page';
+import CustomerOrders from '../pages/CustomerOrders.page';
+import OrderDetail from '../pages/OrderDetail';
 
 function Router() {
   return (
@@ -22,8 +25,19 @@ function Router() {
             </ShoppingCartProvider>
           }
         />
+        <Route
+          path="/customer/checkout"
+          element={
+            <ShoppingCartProvider>
+              <CustomerCheckout />
+            </ShoppingCartProvider>
+          }
+        />
+        <Route element={ <CustomerOrders /> } path="/customer/orders" />
+        <Route element={ <OrderDetail /> } path="/customer/orders/:id" />
         <Route element={ <Admin /> } path="/admin/manage" />
-        <Route element={ <Seller /> } path="/seller/orders" />
+        <Route element={ <SellerOrders /> } path="/seller/orders" />
+        <Route element={ <OrderDetail /> } path="/seller/orders/:id" />
       </Routes>
     </BrowserRouter>
   );

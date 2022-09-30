@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
+// import './style/costumerProducts.css';
 
 function CostumerProducts() {
   const { items, getTotalPrice } = useContext(ShoppingCartContext);
   const [products, setProducts] = useState([]);
   const [showShoppingCartButton, setShowShoppingCartButton] = useState(true);
 
-  const { state } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(state));
     new CyBeerBarAPI().restoreProducts().then((data) => setProducts(data));
   }, []);
 
@@ -23,21 +22,10 @@ function CostumerProducts() {
   return (
     <div>
       <Navbar />
-      <div style={ { display: 'flex', margin: '50px auto', flexWrap: 'wrap' } }>
+      <div className="containerProducts">
         {
           products?.map((product, index) => (
-            <div
-              key={ index }
-              style={ {
-                border: '1px solid white',
-                width: '150px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              } }
-            >
-              <ProductCard product={ product } />
-            </div>
+            <ProductCard key={ index } product={ product } />
           ))
         }
       </div>

@@ -5,6 +5,7 @@ import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 import constants from '../utils/constants.util';
 
 const { status_code: { CREATED } } = constants;
+// import './style/register.css';
 
 export default function Register() {
   const [user, setUser] = useState();
@@ -54,16 +55,16 @@ export default function Register() {
     <div>
       <h1>Cadastro</h1>
 
-      { console.log(status, 'status')}
-      { (user?.name !== '' || user?.email !== '' || user?.password !== '')
+      {console.log(status, 'status')}
+      {(user?.name !== '' || user?.email !== '' || user?.password !== '')
         && status?.map((error, index) => (
           error?.type === 'success'
             ? <p key={ index } style={ { color: 'green' } }>{error?.message}</p>
             : (
               <p
+                className="errorRegister"
                 data-testid="common_register__element-invalid_register"
                 key={ index }
-                style={ { color: 'red' } }
               >
                 {error?.message}
               </p>
@@ -77,7 +78,7 @@ export default function Register() {
             data-testid="common_register__input-name"
             id="name"
             name="name"
-            placeholder="Seu nome"
+            placeholder="Name"
             onChange={ valueInput }
             value={ user?.name }
           />
@@ -86,7 +87,7 @@ export default function Register() {
             data-testid="common_register__input-email"
             id="email"
             name="email"
-            placeholder="seu-email@site.com.br"
+            placeholder="your-email@site.com.br"
             onChange={ valueInput }
             value={ user?.email }
           />
@@ -95,18 +96,20 @@ export default function Register() {
             data-testid="common_register__input-password"
             id="password"
             name="password"
-            placeholder="***********"
+            placeholder="Password"
             onChange={ valueInput }
             value={ user?.password }
           />
-          <button
-            data-testid="common_register__button-register"
-            type="submit"
-            disabled={ registerButtonState }
-          >
-            Cadastrar
-
-          </button>
+          <div>
+            <button
+              className="btnRegister"
+              data-testid="common_register__button-register"
+              type="submit"
+              disabled={ registerButtonState }
+            >
+              Cadastrar
+            </button>
+          </div>
         </form>
       </section>
     </div>

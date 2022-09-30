@@ -1,19 +1,10 @@
-/* stylelint-disable value-list-comma-space-before */
-:root {
+/* :root {
 
   --main-color: #070612;
 
   --white-color: rgb(245, 244, 244);
 
   --pink-color: hsl(314, 99%, 41%);
-
-
-  /*  --blue-color: #31E1F7;
-
-
-  --orange-color: #FF7777;
-
-  */
 }
 
 body {
@@ -39,6 +30,13 @@ input {
 
 }
 
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 30px var(--main-color) inset;
+  -webkit-text-fill-color: var(--white-color);
+}
+
+
 .registerOption {
   background-color: transparent;
   border: none;
@@ -49,6 +47,7 @@ input {
 }
 
 .btnLogin {
+  animation: btnLogin 01s linear infinite;
   background-color: transparent;
   border: var(--pink-color) 3px solid;
   border-radius: 5px;
@@ -82,6 +81,13 @@ input {
   background-color: #f1b;
 }
 
+@keyframes btnLogin {
+
+  0% { opacity: 0.9; }
+
+  50% { opacity: 1; }
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -92,4 +98,4 @@ form {
 .Title {
   font-size: 50px;
   margin-top: 19vh;
-}
+} */
