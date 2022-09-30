@@ -25,7 +25,7 @@ function CostumerProducts() {
       <div className="containerProducts">
         {
           products?.map((product, index) => (
-            <ProductCard key={ index } product={ product } />
+            <ProductCard key={ `${index}-${product.name}` } product={ product } />
           ))
         }
       </div>

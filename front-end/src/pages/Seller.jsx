@@ -4,7 +4,10 @@ export default function Seller() {
   return (
     <>
       <Navbar />
-      <p>Seller page</p>
+      <main>
+        <h2>Seller page</h2>
+      </main>
+
     </>
   );
 }

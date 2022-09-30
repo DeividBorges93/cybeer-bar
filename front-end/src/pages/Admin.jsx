@@ -64,6 +64,7 @@ export default function Admin() {
 
   return (
     <>
+      <span data-testid="64">errorMensage</span>
       <Navbar />
       <div
         style={ { display: 'flex', flexDirection: 'column' } }
