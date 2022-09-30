@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import OrderProducts from '../components/OrderProducts';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
 export default function OrderDetail() {
