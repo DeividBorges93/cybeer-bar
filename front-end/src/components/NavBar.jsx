@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import NavbarAdmin from './NavBarAdmin';
+import NavbarSeller from './NavBarSeller';
+import NavbarCustumer from './NavBarCustomer';
 
 function Navbar() {
   const [userName, setUserName] = useState('');
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
   const logout = () => {
@@ -12,23 +16,17 @@ function Navbar() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user) setUserName(user.name);
+    setUserName(user?.name);
+    setUserRole(user?.role);
   }, []);
 
   return (
-    <div style={ { width: '400px', display: 'flex', justifyContent: 'space-between' } }>
-      <Link to="/customer/products">
-        <span data-testid="customer_products__element-navbar-link-products">
-          Produtos
-        </span>
-      </Link>
-      <Link to="/customer/orders">
-        <span data-testid="customer_products__element-navbar-link-orders">
-          Meus pedidos
-        </span>
-      </Link>
+    <header>
+      {userRole === 'administrator' && <NavbarAdmin />}
+      {userRole === 'seller' && <NavbarSeller />}
+      {userRole === 'customer' && <NavbarCustumer />}
       <span data-testid="customer_products__element-navbar-user-full-name">
-        { userName }
+        {userName}
       </span>
       <button
         onClick={ logout }
@@ -37,8 +35,8 @@ function Navbar() {
       >
         Sair
       </button>
-    </div>
+
+    </header>
   );
 }
-
 export default Navbar;
