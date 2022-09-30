@@ -26,11 +26,8 @@ class LoginService {
   }
 
   static async register({ name, email, password, role }) {
-    const existUser = await dbModel.User.findOne({ where: { [Op.or]: [
-      { name: { $eq: name} },
-      { email: { $eq: email} }
-    ] } });
-    console.log(existUser?.user, existUser?.email);
+    const existUser = await dbModel.User.findOne({ where: { email } });
+    console.log(existUser);
     if (existUser) throw new CustomError('Conflict', 'User already registered');
     
     const user = await dbModel.User.create({
