@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import validate from '../utils/validations';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
-import './style/register.css';
+// import './style/register.css';
 
 export default function Register() {
   const [user, setUser] = useState();

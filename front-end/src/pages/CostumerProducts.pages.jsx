@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
-import './style/costumerProducts.css';
+// import './style/costumerProducts.css';
 
 function CostumerProducts() {
   const { items, getTotalPrice } = useContext(ShoppingCartContext);
