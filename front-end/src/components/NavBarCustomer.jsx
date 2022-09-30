@@ -2,18 +2,24 @@ import { Link } from 'react-router-dom';
 
 function NavbarCustomer() {
   return (
-    <div>
+    <>
       <Link to="/customer/products">
-        <span data-testid="customer_products__element-navbar-link-products">
+        <span
+          style={ { marginRight: '30px' } }
+          data-testid="customer_products__element-navbar-link-products"
+        >
           Produtos
         </span>
       </Link>
       <Link to="/customer/orders">
-        <span data-testid="customer_products__element-navbar-link-orders">
+        <span
+          style={ { marginRight: '30px' } }
+          data-testid="customer_products__element-navbar-link-orders"
+        >
           Meus pedidos
         </span>
       </Link>
-    </div>
+    </>
   );
 }
 
