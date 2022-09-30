@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Navbar from '../components/NavBar';
+import UserCard from '../components/UserCard';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 import constants from '../utils/constants.util';
 import validate from '../utils/validations';
@@ -9,6 +10,7 @@ const { status_code: { CREATED } } = constants;
 export default function Admin() {
   const formRef = useRef();
   const [user, setUser] = useState({ name: '', email: '', password: '', role: 'none' });
+  const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [registerButtonState, setRegisterButton] = useState(true);
 
@@ -44,6 +46,10 @@ export default function Admin() {
   };
 
   useEffect(() => {
+    new CyBeerBarAPI().getUsers().then((data) => setUsers(data));
+  }, []);
+
+  useEffect(() => {
     console.log();
     if (user?.name !== ''
       || user?.email !== ''
@@ -66,7 +72,7 @@ export default function Admin() {
           messages?.map((error, index) => (
             <span
               key={ `${index}-message-error` }
-              data-testid="64"
+              data-testid="admin_manage__element-invalid-register"
             >
               {error?.message}
             </span>
@@ -126,13 +132,13 @@ export default function Admin() {
             <th>Excluir</th>
           </tr>
         </thead>
-        {/* <tbody>
+        <tbody>
           {
-            userList?.map((data) => (
-              <UserCard key={ data.email } data={ data } />
+            users?.map((data, index) => (
+              <UserCard key={ `${index}-${data.email}` } data={ data } />
             ))
           }
-        </tbody> */}
+        </tbody>
       </table>
     </>
   );
