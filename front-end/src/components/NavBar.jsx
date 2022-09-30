@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavbarAdmin from './NavBarAdmin';
 import NavbarSeller from './NavBarSeller';
 import NavbarCustumer from './NavBarCustomer';
@@ -8,7 +8,6 @@ function Navbar() {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
-  const { state } = useLocation();
 
   const logout = () => {
     localStorage.removeItem('user');
@@ -16,9 +15,9 @@ function Navbar() {
   };
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(state));
-    setUserName(state?.name);
-    setUserRole(state?.role);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserName(user?.name);
+    setUserRole(user?.role);
   }, []);
 
   return (
