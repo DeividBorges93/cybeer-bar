@@ -9,6 +9,7 @@ const columns = [{ value: 'Item' },
   { value: 'Remover Item' }];
 
 export default function TableGenerator() {
+  const { role } = JSON.parse(localStorage.getItem('user'));
   const { items, removeItem } = useContext(ShoppingCartContext);
   return (
     <table>
@@ -21,35 +22,35 @@ export default function TableGenerator() {
         {items.map((item, i) => (
           <tr key={ i }>
             <td
-              data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-item-number-${i}` }
             >
               { i + 1 }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-name-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-name-${i}` }
             >
               { item.name }
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-quantity-${i}` }
             >
               <p>{ (item.quantity).toString().replace('.', ',') }</p>
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-unit-price-${i}` }
             >
               { (item.price).replace('.', ',') }
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-sub-total-${i}` }
             >
               { (item.quantity * item.price).toFixed(2).replace('.', ',') }
 
             </td>
             <td
-              data-testid={ `customer_checkout__element-order-table-remove-${i}` }
+              data-testid={ `${role}_checkout__element-order-table-remove-${i}` }
             >
               <button
                 type="button"

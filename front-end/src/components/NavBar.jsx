@@ -15,9 +15,9 @@ function Navbar() {
   };
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify('user'));
-    setUserName('user'?.name);
-    setUserRole('user'?.role);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserName(user?.name);
+    setUserRole(user?.role);
   }, []);
 
   return (
