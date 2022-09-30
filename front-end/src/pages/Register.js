@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import validate from '../utils/validations';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
+import constants from '../utils/constants.util';
+
+const { status_code: { CREATED } } = constants;
 
 export default function Register() {
   const [user, setUser] = useState();
@@ -32,8 +35,19 @@ export default function Register() {
     const hasError = validate(user, 'register');
     const noError = hasError.every((err) => !err);
 
-    if (noError) await new CyBeerBarAPI().register(user, [navigate, setStatus]);
-    else setStatus(hasError);
+    if (noError) {
+      await new CyBeerBarAPI().register({ ...user, role: 'customer' })
+        .then((response) => {
+          if (response.status === CREATED) {
+            navigate('/customer/products');
+          } else {
+            setStatus([{
+              type: 'error',
+              message: `Erro: ${response.data?.message}`,
+            }]);
+          }
+        });
+    } else setStatus(hasError);
   };
 
   return (
