@@ -3,6 +3,7 @@ const CustomError = require('../utils/CustomError');
 const JwtUtils = require('../utils/jwtUtils');
 const passwordCompare = require('../utils/passwordCompare');
 const dbModel = require('../database/models');
+const { Op } = require('sequelize');
 
 class LoginService {
   static async login({ email, password }) {
@@ -23,16 +24,19 @@ class LoginService {
     };
   }
 
-  static async register({ name, email, password }) {
-    const existUser = await dbModel.User.findOne({ where: { email } });
-
+  static async register({ name, email, password, role }) {
+    const existUser = await dbModel.User.findOne({ where: { [Op.or]: [
+      { name: { $eq: name} },
+      { email: { $eq: email} }
+    ] } });
+    console.log(existUser?.user, existUser?.email);
     if (existUser) throw new CustomError('Conflict', 'User already registered');
-
+    
     const user = await dbModel.User.create({
       name,
       email,
       password: md5(password),
-      role: 'customer',
+      role,
     });  
     return user;    
   }
