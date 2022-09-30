@@ -34,6 +34,17 @@ class CyBeerBarAPI {
       .catch((error) => error);
   }
 
+  async adminUserRegister(data) {
+    const Authorization = getStoredToken();
+    return axios.post(
+      '/user/admin',
+      data,
+      { ...this.options, headers: { Authorization } },
+    )
+      .then((response) => response)
+      .catch((error) => console.error(error.message));
+  }
+
   async getSellers() {
     return axios.get('/user/sellers', this.options)
       .then((response) => response.data.sellers)
