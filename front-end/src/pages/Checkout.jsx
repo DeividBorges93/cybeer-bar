@@ -1,7 +1,7 @@
 import { useContext, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TableGenerator from '../components/TableGenerator';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 import { formatOrderRequest } from '../utils/formatters';

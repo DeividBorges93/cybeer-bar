@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import OderDetailsCard from '../components/OrderDetailsCard';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 
