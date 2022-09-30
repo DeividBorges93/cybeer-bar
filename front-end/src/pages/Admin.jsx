@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import Navbar from '../components/NavBar';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
+import constants from '../utils/constants.util';
 import validate from '../utils/validations';
+
+const { status_code: { CREATED } } = constants;
 
 export default function Admin() {
   const formRef = useRef();
@@ -22,12 +25,14 @@ export default function Admin() {
     }, {});
 
     if (!registerButtonState) {
-      new CyBeerBarAPI().register(userData)
+      new CyBeerBarAPI().adminUserRegister(userData)
         .then((response) => {
-          setMessages([{
-            type: 'error',
-            message: `Erro: ${response?.message}`,
-          }]);
+          if (response?.status !== CREATED) {
+            setMessages([{
+              type: 'error',
+              message: `Erro: ${response?.data?.message}`,
+            }]);
+          }
         })
         .catch((error) => {
           setMessages([{
@@ -41,9 +46,9 @@ export default function Admin() {
   useEffect(() => {
     console.log();
     if (user?.name !== ''
-    || user?.email !== ''
-    || user?.password !== ''
-    || user?.role !== 'none') {
+      || user?.email !== ''
+      || user?.password !== ''
+      || user?.role !== 'none') {
       const hasError = validate(user, 'admin-manage');
       console.log(hasError);
       setMessages(hasError);
@@ -63,7 +68,7 @@ export default function Admin() {
               key={ `${index}-message-error` }
               data-testid="64"
             >
-              { error?.message }
+              {error?.message}
             </span>
           ))
         }
