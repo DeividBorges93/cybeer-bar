@@ -7,6 +7,7 @@ export default function Seller() {
       <main>
         <h2>Seller page</h2>
       </main>
+
     </>
   );
 }

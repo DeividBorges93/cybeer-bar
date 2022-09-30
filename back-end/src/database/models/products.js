@@ -17,12 +17,17 @@ const ProductModel = (sequelize, DataTypes) => {
     urlImage: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'url_image',
     },
   }, {
     timestamps: false,
     tableName: 'products',
     underscored: true,
   });
+
+  Products.associate = (models) => {
+    Products.hasMany(models.SalesProducts, { foreignKey: 'productId', as: 'products' })
+  }
 
   return Products;
 };

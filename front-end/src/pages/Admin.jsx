@@ -1,5 +1,5 @@
 import Navbar from '../components/NavBar';
-import UserCard from '../components/UserCard';
+/* import UserCard from '../components/UserCard'; */
 
 export default function Admin() {
   return (
