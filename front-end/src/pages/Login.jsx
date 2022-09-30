@@ -38,8 +38,6 @@ export default function Login() {
   useEffect(() => {
     const canDisable = [validateEmail(emailState), validatePassword(passwordState)];
 
-    console.log(canDisable.every((field) => field));
-
     setloginButton(!canDisable.every((field) => field));
   }, [passwordState, emailState]);
 
