@@ -36,10 +36,25 @@ function validatePassword(user) {
   }
 }
 
-export default function validate(user, op) {
-  const errorArray = [validateName(user),
-    validateEmail(user),
-    validatePassword(user)];
+function validateRole(user) {
+  if (user?.role === 'none') {
+    return ({
+      type: 'error', message: 'Erro: necessário selecionar o tipo de usuário' });
+  }
+}
 
-  return op === 'register' ? errorArray : errorArray.shift();
+export default function validate(user, op) {
+  const lastElement = 3;
+  const errorArray = [
+    validateRole(user),
+    validateName(user),
+    validateEmail(user),
+    validatePassword(user),
+  ];
+
+  if (op === 'admin-manage') {
+    return errorArray;
+  }
+  if (op === 'login') return errorArray.splice(2, lastElement);
+  if (op === 'register') return errorArray.splice(1, lastElement);
 }

@@ -21,14 +21,18 @@ function Navbar() {
   }, []);
 
   return (
-    <header>
+    <header style={ { display: 'flex' } }>
       {userRole === 'administrator' && <NavbarAdmin />}
       {userRole === 'seller' && <NavbarSeller />}
       {userRole === 'customer' && <NavbarCustumer />}
-      <span data-testid="customer_products__element-navbar-user-full-name">
+      <span
+        style={ { marginRight: '30px' } }
+        data-testid="customer_products__element-navbar-user-full-name"
+      >
         {userName}
       </span>
       <button
+        style={ { marginRight: '30px' } }
         onClick={ logout }
         data-testid="customer_products__element-navbar-link-logout"
         type="button"

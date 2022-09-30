@@ -28,24 +28,32 @@ class CyBeerBarAPI {
       });
   }
 
-  async register(data, callbacks) {
-    const [navigate, setFormatError] = callbacks;
+  async register(data) {
     return axios.post('/user/register', data, this.options)
-      .then(() => {
-        const { email, password } = data;
-        this.login({ email, password }, [navigate, setFormatError]);
-      })
-      .catch(() => {
-        setFormatError([{
-          type: 'error',
-          message: 'Erro: Email já cadastrado!',
-        }]);
-      });
+      .then((response) => response)
+      .catch((error) => error);
+  }
+
+  async adminUserRegister(data) {
+    const Authorization = getStoredToken();
+    return axios.post(
+      '/user/admin',
+      data,
+      { ...this.options, headers: { Authorization } },
+    )
+      .then((response) => response)
+      .catch((error) => console.error(error.message));
   }
 
   async getSellers() {
     return axios.get('/user/sellers', this.options)
       .then((response) => response.data.sellers)
+      .catch((error) => console.error(error.message));
+  }
+
+  async getUsers() {
+    return axios.get('/user', this.options)
+      .then((response) => response.data.users)
       .catch((error) => console.error(error.message));
   }
 

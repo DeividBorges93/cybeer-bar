@@ -24,16 +24,19 @@ class LoginService {
     };
   }
 
-  static async register({ name, email, password }) {
-    const existUser = await dbModel.User.findOne({ where: { email } });
-
-    if (existUser) throw new CustomError('Conflict', 'User already registered');
+  static async register({ name, email, password, role }) {
+    const existUserEmail = await dbModel.User.findOne({ where: { email } });
+    const existUserName = await dbModel.User.findOne({ where: { name } });
+    
+    if (existUserEmail || existUserName) {
+      throw new CustomError('Conflict', 'User already registered');
+    }
 
     const user = await dbModel.User.create({
       name,
       email,
       password: md5(password),
-      role: 'customer',
+      role,
     });  
     return user;    
   }
@@ -41,6 +44,11 @@ class LoginService {
   static async getSellers() {
     const sellers = await dbModel.User.findAll({ where: { role: 'seller' } });
     return sellers;
+  }
+
+  static async getUsers() {
+    const users = await dbModel.User.findAll();
+    return users;
   }
 
   static async decryptToken(token) {
