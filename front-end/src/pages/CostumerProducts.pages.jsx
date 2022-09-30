@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
@@ -25,7 +25,7 @@ function CostumerProducts() {
       <div className="containerProducts">
         {
           products?.map((product, index) => (
-            <ProductCard key={ index } product={ product } />
+            <ProductCard key={ `${index}-${product.name}` } product={ product } />
           ))
         }
       </div>
