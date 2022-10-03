@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import validate from '../utils/validations';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
 import constants from '../utils/constants.util';
+import './style/register.css';
 
 const { status_code: { CREATED } } = constants;
-// import './style/register.css';
 
 export default function Register() {
   const [user, setUser] = useState();
