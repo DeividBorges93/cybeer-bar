@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-distracting-elements */
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
@@ -28,12 +29,15 @@ function ProductCard({ product, key }) {
         alt={ name }
         src={ urlImage }
       />
-      <p
+      <marquee
+        width="40%"
+        direction="left"
+        scrollamount="2"
         className="name"
         data-testid={ `customer_products__element-card-title-${id}` }
       >
         {name}
-      </p>
+      </marquee>
 
       <div className="controlQuantity">
         <button
