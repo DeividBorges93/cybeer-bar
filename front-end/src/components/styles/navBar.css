@@ -1,0 +1,55 @@
+:root {
+
+  --main-color: #070612;
+
+  --secundary-color: #131128;
+
+  --tertiary-color: #1b183b;
+
+  --pink-color: hsl(314, 99%, 41%);
+
+  --blue-color: #30dcf3;
+
+  --white-color: white;
+}
+
+header {
+  align-items: center;
+  background-color: var(--secundary-color);
+  box-shadow: var(--tertiary-color) 0 5px 0 0;
+  display: flex;
+  height: 10vh;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+}
+
+.IconDiv {
+  align-items: center;
+  display: flex;
+  gap: 5vh;
+}
+
+.logOutButton {
+  background-color: transparent;
+  border: none;
+}
+
+.logOutIcon {
+  margin-right: 5vh;
+  margin-top: 9px;
+  width: 50px;
+}
+
+.beerIcon {
+  margin-left: 5vh;
+  width: 38px;
+}
+
+.myOrderIcon {
+  width: 50px;
+}
+
+.userIcon {
+  width: 40px;
+}

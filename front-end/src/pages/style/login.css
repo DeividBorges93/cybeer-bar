@@ -1,18 +1,28 @@
-/* :root {
+:root {
 
   --main-color: #070612;
 
   --white-color: rgb(245, 244, 244);
 
   --pink-color: hsl(314, 99%, 41%);
+
+  --blue-color: #30dcf3;
+
+}
+
+.LoginBody {
+  align-items: center;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 body {
   align-items: center;
   background-color: var(--main-color);
   color: var(--white-color);
-  display: flex;
-  justify-content: center;
   text-align: center;
 }
 
@@ -83,9 +93,9 @@ input:-webkit-autofill {
 
 @keyframes btnLogin {
 
-  0% { opacity: 0.9; }
+  0% { opacity: 0.8; }
 
-  50% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 form {
@@ -98,4 +108,19 @@ form {
 .Title {
   font-size: 50px;
   margin-top: 19vh;
-} */
+}
+
+
+::-webkit-scrollbar {
+  width: 3px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  padding: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue-color);
+}

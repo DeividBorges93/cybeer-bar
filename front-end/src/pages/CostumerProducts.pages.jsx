@@ -4,7 +4,8 @@ import Navbar from '../components/NavBar';
 import ProductCard from '../components/ProductCard';
 import { ShoppingCartContext } from '../contexts/ShoppingCartProvider.context';
 import CyBeerBarAPI from '../services/CyBeerBarAPI.service';
-// import './style/costumerProducts.css';
+import cartShop from '../assets/images/shopCart.png';
+import './style/costumerProducts.css';
 
 function CostumerProducts() {
   const { items, getTotalPrice } = useContext(ShoppingCartContext);
@@ -20,7 +21,7 @@ function CostumerProducts() {
   useEffect(() => setShowShoppingCartButton(getTotalPrice() === 0), [items]);
 
   return (
-    <div>
+    <div className="bodyProductsDiv">
       <Navbar />
       <div className="containerProducts">
         {
@@ -30,12 +31,17 @@ function CostumerProducts() {
         }
       </div>
       <button
+        className="CartButton"
         onClick={ () => navigate('/customer/checkout') }
         type="button"
         data-testid="customer_products__button-cart"
         disabled={ showShoppingCartButton }
       >
-        <span data-testid="customer_products__checkout-bottom-value">
+        <span
+          className="spanCartShop"
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          <img className="cartShopIcon" src={ cartShop } alt="Shop Cart" />
           {`${getTotalPrice().toFixed(2)}`.replace(/\./, ',')}
         </span>
       </button>
